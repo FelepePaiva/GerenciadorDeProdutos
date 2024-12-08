@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GerenciadorDeProdutos.Controllers
 {
-    [Authorize]
+    
     [ApiController]
     [Route("api/")]
     public class ProdutoController : Controller
@@ -38,7 +38,7 @@ namespace GerenciadorDeProdutos.Controllers
             var listarProdutos = await _service.ListarTodosProdutosEmEstoque();
             return Ok(listarProdutos);
         }
-        [Authorize(Policy ="gerente")]
+        [Authorize(Roles ="gerente")]
         [HttpPost]
         public async Task<IActionResult> Adicionar([FromBody]ProdutoDTO produtoDTO)
         {
@@ -71,7 +71,7 @@ namespace GerenciadorDeProdutos.Controllers
         }
         [Authorize(Roles = "gerente")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> ExcluirProduto(int id)
         {
             if (id <= 0)
             {
